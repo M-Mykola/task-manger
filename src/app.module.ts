@@ -6,7 +6,6 @@ import { ConfigModule } from '@nestjs/config';
 import { MONGO_URI } from './connection';
 import { TasksModule } from './modules/tasks/tasks.module';
 import { ProjectsModule } from './modules/projects/projects.module';
-import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
@@ -17,9 +16,7 @@ import { AuthModule } from './auth/auth.module';
     TasksModule,
     ProjectsModule,
     MongooseModule.forRoot(MONGO_URI),
-    UsersModule,
     AuthModule,
   ],
-  
 })
 export class AppModule {}
