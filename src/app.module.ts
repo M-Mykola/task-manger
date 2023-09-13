@@ -6,7 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MONGO_URI } from './connection';
 import { TasksModule } from './modules/tasks/tasks.module';
 import { ProjectsModule } from './modules/projects/projects.module';
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   controllers: [AppController],
