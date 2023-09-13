@@ -10,27 +10,19 @@ import { TaskStatus } from './entities/enum.values';
 export class TasksService {
   constructor(@InjectModel('Task') private taskModel: Model<Task>) {}
 
-  async create(createTaskDto: CreateTaskDto) {
-    const createTask = await this.taskModel.create(createTaskDto);
-    return createTask.save();
+  async create(createTaskDto: CreateTaskDto): Promise<Task | null> {
+    return await this.taskModel.create(createTaskDto);
   }
 
-  async findOne(id: string) {
-    const findOneById = await this.taskModel.findById({ _id: id });
-    if (findOneById) {
-      return findOneById;
-    } else {
-      return 'Task has no found!';
-    }
+  async findOne(id: string): Promise<Task | null> {
+    return await this.taskModel.findById({ _id: id });
   }
 
   async findTasksByCriteria(query: any): Promise<Task[]> {
     const aggregationPipeline = [];
-
     if (!query.taskState && !query.startDate && !query.endDate) {
       throw new BadRequestException('Must be some filter parameters!.');
     }
-
     if (
       query.taskState &&
       Object.values(TaskStatus).includes(query.taskState)
@@ -41,15 +33,12 @@ export class TasksService {
     }
     if (query.startDate || query.endDate) {
       const dateFilter: any = {};
-
       if (query.startDate) {
         dateFilter.$gte = new Date(query.startDate);
       }
-
       if (query.endDate) {
         dateFilter.$lte = new Date(query.endDate);
       }
-
       aggregationPipeline.push({
         $match: { createdAt: dateFilter },
       });
@@ -65,34 +54,17 @@ export class TasksService {
     }
   }
 
-  async update(id: string, updateTaskDto: UpdateTaskDto) {
-    const updateTask = await this.taskModel.findOneAndUpdate(
-      { _id: id },
-      updateTaskDto,
-      { new: true },
-    );
-    if (updateTask) {
-      return updateTask;
-    } else {
-      return 'Task has no found!';
-    }
+  async update(id: string, updateTaskDto: UpdateTaskDto): Promise<Task> | null {
+    return await this.taskModel.findOneAndUpdate({ _id: id }, updateTaskDto, {
+      new: true,
+    });
   }
 
-  async remove(id: string) {
-    const remove = await this.taskModel.findByIdAndRemove({ _id: id });
-    if (remove) {
-      return `Task '${id}' has been removed`;
-    } else {
-      return 'Task has no found!';
-    }
+  async remove(id: string): Promise<Task> {
+    return await this.taskModel.findByIdAndRemove({ _id: id });
   }
 
-  async findAll() {
-    const remove = await this.taskModel.find();
-    if (remove) {
-      return remove;
-    } else {
-      return 'Tasks has no found!';
-    }
+  async findAll(): Promise<Task[]> {
+    return await this.taskModel.find();
   }
 }
