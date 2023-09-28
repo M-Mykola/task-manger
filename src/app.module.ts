@@ -2,10 +2,12 @@ import { Module } from '@nestjs/common';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
-import { MONGO_URI } from './connection';
 import { TasksModule } from './modules/tasks/tasks.module';
 import { ProjectsModule } from './modules/projects/projects.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { MONGO_URI } from './config';
+
+
 @Module({
   providers: [AppService],
   imports: [
