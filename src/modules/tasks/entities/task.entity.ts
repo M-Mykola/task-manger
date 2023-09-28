@@ -8,8 +8,7 @@ export class Task {
   @Prop({ required: true })
   taskDescription: string;
   @Prop({ enum: TaskStatus })
-
-  taskState:TaskStatus
+  taskState: TaskStatus;
 }
 
 export const TaskSchema = SchemaFactory.createForClass(Task);

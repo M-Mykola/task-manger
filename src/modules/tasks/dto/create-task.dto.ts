@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, IsEnum} from 'class-validator';
+import { IsNotEmpty, IsString, IsEnum } from 'class-validator';
 import { TaskStatus } from '../entities/enum.values';
 
 export class CreateTaskDto {
@@ -15,5 +15,5 @@ export class CreateTaskDto {
   @IsEnum(TaskStatus)
   @IsString()
   @IsNotEmpty()
-  taskState:TaskStatus
+  taskState: TaskStatus;
 }
