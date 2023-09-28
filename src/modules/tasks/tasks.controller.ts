@@ -12,9 +12,10 @@ import {
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt.auth.guard';
 
+@ApiBearerAuth()
 @ApiTags('Task Service')
 @UseGuards(JwtAuthGuard)
 @Controller('taskService')
